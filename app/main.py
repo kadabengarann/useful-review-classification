@@ -140,7 +140,8 @@ class App:
         self.fileTypes = ["csv"]
         self.default_tab_selected = tab_labels[0]
         self.input_text = None
-        self.input_file = None
+        self.csv_input = None
+        self.csv_process = None
         
     def run(self):
         self.init_session_state()  # Initialize session state
@@ -214,8 +215,8 @@ class App:
             return
 
         df_process = data[ques]
-        self.input_file = data
-        self.process_file = df_process
+        self.csv_input = data
+        self.csv_process = df_process
         
     def render_process_button(self, model, tokenizer, device):
         if st.button("Process"):
@@ -226,13 +227,13 @@ class App:
                     prediction_label = get_key(prediction, LABELS)
                     st.write("Prediction:", prediction_label)
             elif st.session_state.tab_selected == tab_labels[1]:
-                df_process = self.process_file
+                df_process = self.csv_process
                 if df_process is not None:
                     prediction = predict_multiple(df_process, model, tokenizer, device)
                     
                     st.divider()
                     st.write("Classification Result")
-                    input_file = self.input_file
+                    input_file = self.csv_input
                     input_file["classification_result"] = prediction
                     st.dataframe(input_file.head(10))
                     st.download_button(
