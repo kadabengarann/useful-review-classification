@@ -19,16 +19,16 @@ img {
 """
 # Config
 MAX_SEQ_LEN = 128
-bert_path = './local/base-indobert'
-# bert_path = 'indolem/indobert-base-uncased'
-# MODELS_PATH = ["kadabengaran/IndoBERT-Useful-App-Review",
-#                "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"]
-MODELS_PATH = ["./local/indobert1",
-               "./local/indobert2"]
+# bert_path = './local/base-indobert'
+bert_path = 'indolem/indobert-base-uncased'
+MODELS_PATH = ["kadabengaran/IndoBERT-Useful-App-Review",
+               "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"]
+# MODELS_PATH = ["./local/indobert1",
+#                "./local/indobert2"]
 
 MODELS_NAME = ["IndoBERT-BiLSTM", "IndoBERT"]
 LABELS = {'Not Useful': 0, 'Useful': 1}
-            #    "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"]
+            
 HIDDEN_DIM = 768
 OUTPUT_DIM = 2 # 2 if Binary
 N_LAYERS = 2
