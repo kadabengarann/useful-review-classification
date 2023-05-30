@@ -21,8 +21,8 @@ img {
 MAX_SEQ_LEN = 128
 # bert_path = 'indolem/indobert-base-uncased'
 bert_path = 'indobenchmark/indobert-base-p2'
-MODELS_PATH = ["kadabengaran/IndoBERT-Useful-App-Review",
-               "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"]
+MODELS_PATH = ["kadabengaran/IndoBERT-BiLSTM-Useful-App-Review",
+               "kadabengaran/IndoBERT-Useful-App-Review"]
 
 MODELS_NAME = ["IndoBERT-BiLSTM", "IndoBERT"]
 LABELS = {'Not Useful': 0, 'Useful': 1}
