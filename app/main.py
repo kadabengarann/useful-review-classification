@@ -19,7 +19,8 @@ img {
 """
 # Config
 MAX_SEQ_LEN = 128
-bert_path = 'indolem/indobert-base-uncased'
+# bert_path = 'indolem/indobert-base-uncased'
+bert_path = 'indobenchmark/indobert-base-p2'
 MODELS_PATH = ["kadabengaran/IndoBERT-Useful-App-Review",
                "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"]
 
