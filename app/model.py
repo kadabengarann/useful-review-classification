@@ -13,10 +13,9 @@ device = get_device()
 if device.type == 'cuda':
     USE_CUDA = True
 
-bert_path = 'indobenchmark/indobert-base-p2'
+base_bert = 'indobenchmark/indobert-base-p2'
 HIDDEN_DIM = 768
 OUTPUT_DIM = 2 # 2 if Binary Classification
-N_LAYERS = 1 # 2
 BIDIRECTIONAL = True
 DROPOUT = 0.2 # 0.2
 
@@ -29,7 +28,7 @@ class IndoBERTBiLSTM(PreTrainedModel):
         self.hidden_dim = HIDDEN_DIM
         self.bidirectional = BIDIRECTIONAL
 
-        self.bert = BertModel.from_pretrained(bert_path)
+        self.bert = BertModel.from_pretrained(base_bert)
         self.lstm = nn.LSTM(input_size=self.bert.config.hidden_size,
                             hidden_size=self.hidden_dim,
                             num_layers=self.n_layers,
