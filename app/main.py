@@ -1,10 +1,8 @@
 try:
     import torch
- 
     import pandas as pd
     import streamlit as st
     import re
-    import streamlit as st
     from transformers import BertTokenizer
     from model import IndoBERTBiLSTM
 except Exception as e:
