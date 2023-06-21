@@ -85,6 +85,10 @@ def predict_single(text, model, tokenizer, device):
     return predictions.item()
 
 def predict_multiple(data, model, tokenizer, device):
+    
+    if device.type == 'cuda':
+        model.cuda()
+        
     input_ids = []
     attention_masks = []
     for row in data.tolist():
