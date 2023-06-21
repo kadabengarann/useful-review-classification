@@ -5,7 +5,7 @@ try:
     import streamlit as st
     import re
     import streamlit as st
-    from transformers import BertTokenizer, BertModel
+    from transformers import BertTokenizer, AutoConfig
     from model import IndoBERTBiLSTM, IndoBERTModel
 except Exception as e:
     print(e)
@@ -19,19 +19,8 @@ img {
 """
 # Config
 MAX_SEQ_LEN = 128
-# bert_path = 'indolem/indobert-base-uncased'
-bert_path = 'indobenchmark/indobert-base-p2'
-MODELS_PATH = ["kadabengaran/IndoBERT-BiLSTM-Useful-App-Review",
-               "kadabengaran/IndoBERT-Useful-App-Review"]
-
-MODELS_NAME = ["IndoBERT-BiLSTM", "IndoBERT"]
+MODELS_PATH = "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"
 LABELS = {'Not Useful': 0, 'Useful': 1}
-            
-HIDDEN_DIM = 768
-OUTPUT_DIM = 2 # 2 if Binary
-N_LAYERS = 2
-BIDIRECTIONAL = True
-DROPOUT = 0.2
 
 # Get the Keys
 def get_key(val, my_dict):
@@ -39,18 +28,15 @@ def get_key(val, my_dict):
         if val == value:
             return key
 
-
 def get_device():
     if torch.cuda.is_available():
         return torch.device('cuda')
     else:
         return torch.device('cpu')
 
-
 def load_tokenizer(model_path):
     tokenizer = BertTokenizer.from_pretrained(model_path)
     return tokenizer
-
 
 def remove_special_characters(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
@@ -58,7 +44,6 @@ def remove_special_characters(text):
     text = re.sub(r'[0-9]', ' ', text) #remove number
     text = text.lower()
     return text
-
 
 def preprocess(text, tokenizer, max_seq=MAX_SEQ_LEN):
     return tokenizer.encode_plus(text, add_special_tokens=True, max_length=max_seq,
@@ -68,19 +53,8 @@ def preprocess(text, tokenizer, max_seq=MAX_SEQ_LEN):
                                  )
     
 def load_model():
-    bert = BertModel.from_pretrained(bert_path)
-    
-	# Load the model
-    model_combined = IndoBERTBiLSTM.from_pretrained(MODELS_PATH[0],
-                                     bert,
-                                     HIDDEN_DIM,
-                                     OUTPUT_DIM,
-                                     N_LAYERS, BIDIRECTIONAL,
-                                     DROPOUT)
-    model_base = IndoBERTModel.from_pretrained(MODELS_PATH[1],
-                                     bert,
-                                     OUTPUT_DIM)
-    return model_combined, model_base
+    model = IndoBERTBiLSTM.from_pretrained(MODELS_PATH)
+    return model
 
 def predict_single(text, model, tokenizer, device):
     
@@ -158,22 +132,14 @@ class App:
         st.markdown(html_temp, unsafe_allow_html=True)
         self.render_tabs()
         st.divider()
-        model_choice = self.render_model_selection()
-        if model_choice:
-            if model_choice == MODELS_NAME[0]:
-                model = model_combined
-            elif model_choice == MODELS_NAME[1]:
-                model = model_base
-            self.render_process_button(model, tokenizer, device)
+        model = model_combined
+        self.render_process_button(model, tokenizer, device)
 
     def init_session_state(self):
         if "tab_selected" not in st.session_state:
             st.session_state.tab_selected = tab_labels[0]
 
-    def render_model_selection(self):
-        model_choice = st.selectbox("Select Model", MODELS_NAME)
-        return model_choice
-    
+
     def render_tabs(self):
         tab_selected = st.session_state.get('tab_selected', self.default_tab_selected)
         tab_selected = st.sidebar.radio("Select Input Type", tab_labels)
@@ -195,7 +161,7 @@ class App:
         """
         st.markdown(STYLE, unsafe_allow_html=True)
         file = st.file_uploader("Upload file", type=self.fileTypes)
-
+        # add "untuk kelancaran proses, maksimal csv dengan 1000 baris data"
 
         if not file:
             st.info("Please upload a file of type: " + ", ".join(self.fileTypes))
