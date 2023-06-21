@@ -5,6 +5,7 @@ try:
     import re
     from transformers import BertTokenizer
     from model import IndoBERTBiLSTM
+    from stqdm import stqdm
 except Exception as e:
     print(e)
     
@@ -102,7 +103,7 @@ def classify_multiple(data, model, tokenizer, device):
     result_list = []
     
     with torch.no_grad():
-        for i in range(len(input_ids)):
+        for i in stqdm(range(len(input_ids))):
             test_ids = input_ids[i]
             test_attention_mask = attention_masks[i]
             outputs = model(test_ids.to(device), test_attention_mask.to(device))
