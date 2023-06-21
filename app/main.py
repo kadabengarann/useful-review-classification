@@ -120,7 +120,7 @@ class App:
         
     def run(self):
         self.init_session_state()  # Initialize session state
-        tokenizer = load_tokenizer(bert_path)
+        tokenizer = load_tokenizer(MODELS_PATH)
         device = get_device()
         model_combined, model_base = load_model()
         """App Review Classifier"""
