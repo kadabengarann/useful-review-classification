@@ -24,8 +24,7 @@ position: fixed;
 left: 0;
 bottom: 0;
 width: 100%;
-background-color: white;
-color: #fff;
+color: #e7e7e7;
 text-align: center;
 }
 </style>
@@ -44,7 +43,7 @@ def get_device():
     else:
         return torch.device('cpu')
 
-USE_CUDA = True
+USE_CUDA = False
 device = get_device()
 if device.type == 'cuda':
     USE_CUDA = True
