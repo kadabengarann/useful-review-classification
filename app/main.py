@@ -19,30 +19,18 @@ img {
 """
 
 footer="""<style>
-a:link , a:visited{
-color: blue;
-background-color: transparent;
-text-decoration: underline;
-}
-
-a:hover,  a:active {
-color: red;
-background-color: transparent;
-text-decoration: underline;
-}
-
 .footer {
 position: fixed;
 left: 0;
 bottom: 0;
 width: 100%;
 background-color: white;
-color: black;
+color: #fff;
 text-align: center;
 }
 </style>
 <div class="footer">
-<p>Developed with ❤ by <a style='display: block; text-align: center;' href="https://www.heflin.dev/" target="_blank">Heflin Stephen Raj S</a></p>
+<p>CUDA enabled</p>
 </div>
 """
 # Config
@@ -50,17 +38,22 @@ MAX_SEQ_LEN = 128
 MODELS_PATH = "kadabengaran/IndoBERT-BiLSTM-Useful-App-Review"
 LABELS = {'Not Useful': 0, 'Useful': 1}
 
-# Get the Keys
-def get_key(val, my_dict):
-    for key, value in my_dict.items():
-        if val == value:
-            return key
-
 def get_device():
     if torch.cuda.is_available():
         return torch.device('cuda')
     else:
         return torch.device('cpu')
+
+USE_CUDA = False
+device = get_device()
+if device.type == 'cuda':
+    USE_CUDA = True
+
+# Get the Keys
+def get_key(val, my_dict):
+    for key, value in my_dict.items():
+        if val == value:
+            return key
 
 def load_tokenizer(model_path):
     tokenizer = BertTokenizer.from_pretrained(model_path)
@@ -153,7 +146,6 @@ class App:
     def run(self):
         self.init_session_state()  # Initialize session state
         tokenizer = load_tokenizer(MODELS_PATH)
-        device = get_device()
         model = load_model()
         """App Review Classifier"""
         html_temp = """
