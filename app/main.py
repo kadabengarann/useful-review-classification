@@ -122,7 +122,7 @@ class App:
         self.init_session_state()  # Initialize session state
         tokenizer = load_tokenizer(MODELS_PATH)
         device = get_device()
-        model_combined, model_base = load_model()
+        model = load_model()
         """App Review Classifier"""
         html_temp = """
         <div style="background-color:blue;padding:10px">
@@ -132,7 +132,6 @@ class App:
         st.markdown(html_temp, unsafe_allow_html=True)
         self.render_tabs()
         st.divider()
-        model = model_combined
         self.render_process_button(model, tokenizer, device)
 
     def init_session_state(self):
