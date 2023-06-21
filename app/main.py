@@ -44,7 +44,7 @@ def get_device():
     else:
         return torch.device('cpu')
 
-USE_CUDA = False
+USE_CUDA = True
 device = get_device()
 if device.type == 'cuda':
     USE_CUDA = True
