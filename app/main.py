@@ -108,7 +108,7 @@ def classify_multiple(data, model, tokenizer, device):
             outputs = model(test_ids.to(device), test_attention_mask.to(device))
             result = torch.argmax(outputs, dim= -1)
             result_label = get_key(result.item(), LABELS)
-            result.append(result_label)
+            result_list.append(result_label)
             
     return result_list
 
