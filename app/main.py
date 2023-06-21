@@ -183,7 +183,7 @@ class App:
             st.warning("Please select a column to process")
             return
 
-        df_process = data[ques]
+        df_process = data[ques].astype(str)
         self.csv_input = data
         self.csv_process = df_process
         
