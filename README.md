@@ -7,7 +7,7 @@
   <h3 align="center">Useful App Review Classification</h3>
     <br />
   <p align="center">
-    This machine learning project utilizes the IndoBERT-BiLSTM model to automate the classification of app reviews into "Useful" or "Not Useful" categories. A "Useful Review" is defined as one that provides constructive feedback and valuable insights to aid developers in improving their applications.
+    This machine learning project utilizes the IndoBERT-BiLSTM model to automate the classification of app reviews into "Useful" or "Not Useful" categories. A "Useful Review" is defined as one that provides constructive feedback and valuable insights to aid developers in improving their applications. Experiment results demonstrate that the IndoBERT-BiLSTM model achieves the best performance with an accuracy rate of 95.49%, representing a 1.16% improvement over the fine-tuned IndoBERT model.
     <br />
     <br />
     <a href="https://huggingface.co/spaces/kadabengaran/useful-review-classification">View Demo</a>
